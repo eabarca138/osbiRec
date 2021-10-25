@@ -1,10 +1,9 @@
 import {useState} from 'react';
 
-import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import {AddShoppingCart, Add, Remove} from '@mui/icons-material/';
+import { Add, Remove, AddShoppingCart} from '@mui/icons-material/';
 
 const ItemCount = ({stock, initial, onAdd}) => {
 
@@ -22,27 +21,25 @@ const ItemCount = ({stock, initial, onAdd}) => {
       }
     };
 
-    const addCart = () => {
-        onAdd(count)
-    }
-
 
     return (
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActions>
-          <IconButton aria-label="add" onClick={add}>
-            <Add />
-          </IconButton>
+      <CardActions>
+        <IconButton aria-label="add" onClick={add}>
+          <Add />
+        </IconButton>
 
-            {count}
+        {count}
 
-          <IconButton aria-label="remove" onClick={remove}>
-            <Remove />
-          </IconButton>
+        <IconButton aria-label="remove" onClick={remove}>
+          <Remove />
+        </IconButton>
 
-          <Button variant="outlined" endIcon={<AddShoppingCart />} onClick={addCart}>Agregar</Button>
-        </CardActions>
-      </Card>
+        <Button
+          variant="outlined"
+          endIcon={<AddShoppingCart />}
+          onClick={onAdd}
+        ></Button>
+      </CardActions>
     );
 }
  

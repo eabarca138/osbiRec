@@ -7,7 +7,7 @@ function App() {
     <div>
       <NavBar />
 
-      <ItemListContainer greeting="hola soy una prop" />
+      <ItemListContainer />
     </div>
   );
 }
