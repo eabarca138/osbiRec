@@ -1,11 +1,9 @@
 import {useState} from 'react';
 
-import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import { Add, Remove, AddShoppingCart} from '@mui/icons-material/';
+import {IconButton} from '@mui/material/';
+import { Add, Remove} from '@mui/icons-material/';
 
-const ItemCount = ({stock, initial, onAdd}) => {
+const ItemCount = ({stock, initial}) => {
 
     const [count, setCount] = useState(initial)
 
@@ -23,7 +21,7 @@ const ItemCount = ({stock, initial, onAdd}) => {
 
 
     return (
-      <CardActions>
+      <div>
         <IconButton aria-label="add" onClick={add}>
           <Add />
         </IconButton>
@@ -33,13 +31,7 @@ const ItemCount = ({stock, initial, onAdd}) => {
         <IconButton aria-label="remove" onClick={remove}>
           <Remove />
         </IconButton>
-
-        <Button
-          variant="outlined"
-          endIcon={<AddShoppingCart />}
-          onClick={onAdd}
-        ></Button>
-      </CardActions>
+      </div>
     );
 }
  

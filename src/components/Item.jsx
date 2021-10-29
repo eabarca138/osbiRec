@@ -1,21 +1,22 @@
-import ItemCount from './ItemCount'
+import {Card, CardContent, CardMedia, Typography, Grid} from '@mui/material/';
+import { makeStyles } from '@mui/styles';
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-
+    const useStyles = makeStyles({
+      scale: {
+        cursor: "pointer",
+        '&:hover':{
+          transform: "scale(1.1)",
+          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;"
+        }
+      },
+    });
 
 const Item = ({product}) => {
-
-    const onAdd = (cantidad) => {
-        alert(`Haz Agregado ${cantidad} de X al carrito`)
-    }
+    const classes = useStyles();
 
     return (
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Card sx={{ maxWidth: 200 }}>
+        <Card sx={{ maxWidth: 200 }} className={classes.scale}>
           <CardMedia
             component="img"
             height="200"
@@ -37,7 +38,6 @@ const Item = ({product}) => {
             </Typography>
           </CardContent>
 
-          <ItemCount stock={product.stock} initial={1} onAdd={onAdd} />
         </Card>
       </Grid>
     );
