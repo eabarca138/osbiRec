@@ -1,9 +1,18 @@
+import { useState } from 'react'
 import ItemCount from './ItemCount'
 
-import {Container, Grid, CircularProgress, Button, Box, Divider} from "@mui/material/";
-import {AddShoppingCart} from '@mui/icons-material/';
+import {Container, Grid, CircularProgress, Box, Divider} from "@mui/material/";
 
 const ItemDetail = ({item, loading}) => {
+
+  const [cantidad, setCantidad] = useState(0)
+  
+
+  const onAdd = (count) => {
+    setCantidad(count)
+  }
+  console.log(cantidad);
+
   return (
     <Container sx={{ boxShadow: 3 }}>
       {loading ? (
@@ -20,17 +29,8 @@ const ItemDetail = ({item, loading}) => {
 
             <Divider />
 
-            <Grid container sx={{ my: 3 }}>
-              <Grid item xs={3}>
-                <ItemCount stock={item.stock} initial={1} />
-              </Grid>
-
-              <Grid item xs={9}>
-                <Button variant="outlined" endIcon={<AddShoppingCart />}>
-                  add to cart
-                </Button>
-              </Grid>
-            </Grid>
+                <ItemCount stock={item.stock} initial={1} onAdd={onAdd}/>
+              
 
             <p>Released: {item.released}</p>
             <p>Genre: {item.genre}</p>
