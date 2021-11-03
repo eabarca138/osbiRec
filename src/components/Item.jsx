@@ -1,5 +1,6 @@
 import {Card, CardContent, CardMedia, Typography, Grid} from '@mui/material/';
 import { makeStyles } from '@mui/styles';
+import { Link } from "react-router-dom"
 
     const useStyles = makeStyles({
       scale: {
@@ -9,6 +10,9 @@ import { makeStyles } from '@mui/styles';
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;"
         }
       },
+      link: {
+        textDecoration: "none",
+      },
     });
 
 const Item = ({product}) => {
@@ -16,6 +20,7 @@ const Item = ({product}) => {
 
     return (
       <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Link to={`/detail/${product.id}`} className={classes.link}>
         <Card sx={{ maxWidth: 200 }} className={classes.scale}>
           <CardMedia
             component="img"
@@ -39,6 +44,7 @@ const Item = ({product}) => {
           </CardContent>
 
         </Card>
+      </Link>
       </Grid>
     );
 }

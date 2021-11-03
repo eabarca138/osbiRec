@@ -9,11 +9,8 @@ const ItemDetail = ({item, loading}) => {
       {loading ? (
         <Grid container>
           <Grid item xs={6}>
-            <Box sx={{ mx: "auto", width: '50%', height:'50%',mt: 5 }}>
-            <img
-              src={item.img}
-              alt="cover"
-            />
+            <Box sx={{ mx: "auto", width: "50%", height: "50%", mt: 5 }}>
+              <img src={item.imgDetail} alt="cover" />
             </Box>
           </Grid>
 
@@ -23,17 +20,16 @@ const ItemDetail = ({item, loading}) => {
 
             <Divider />
 
-            <Grid container sx={{my: 3}}>
-
+            <Grid container sx={{ my: 3 }}>
               <Grid item xs={3}>
-            <ItemCount stock={item.stock} initial={1} />
-            </Grid>
+                <ItemCount stock={item.stock} initial={1} />
+              </Grid>
 
-            <Grid item xs={9}>
-            <Button variant="outlined" endIcon={<AddShoppingCart />}>
-              add to cart
-            </Button>
-            </Grid>
+              <Grid item xs={9}>
+                <Button variant="outlined" endIcon={<AddShoppingCart />}>
+                  add to cart
+                </Button>
+              </Grid>
             </Grid>
 
             <p>Released: {item.released}</p>
