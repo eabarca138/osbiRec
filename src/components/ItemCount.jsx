@@ -1,21 +1,11 @@
 import {useState} from 'react';
-import { Link } from "react-router-dom";
 
 import {IconButton, Grid, Button} from '@mui/material/';
 import { Add, Remove, AddShoppingCart} from '@mui/icons-material/';
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  link: {
-    textDecoration: "none",
-  }
-});
 
 const ItemCount = ({ stock, initial, onAdd }) => {
-  const classes = useStyles();
 
   const [count, setCount] = useState(initial);
-  const [boton, setBoton] = useState(false);
 
   const add = () => {
     if (count < stock) {
@@ -37,7 +27,6 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       } al carrito`
     );
     setCount(initial);
-    setBoton(true);
   };
 
   return (
@@ -56,19 +45,13 @@ const ItemCount = ({ stock, initial, onAdd }) => {
         </Grid>
 
         <Grid item xs={8}>
-          {boton ? (
-            <Link to="/cart" className={classes.link}>
-              <Button variant="outlined">finalizar compra</Button>
-            </Link>
-          ) : (
-            <Button
-              variant="outlined"
-              endIcon={<AddShoppingCart />}
-              onClick={handlerOnAdd}
-            >
-              agregar
-            </Button>
-          )}
+          <Button
+            variant="outlined"
+            endIcon={<AddShoppingCart />}
+            onClick={handlerOnAdd}
+          >
+            agregar
+          </Button>
         </Grid>
       </Grid>
     </div>

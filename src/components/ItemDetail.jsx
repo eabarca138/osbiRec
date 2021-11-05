@@ -1,15 +1,26 @@
 import { useState } from 'react'
+import { Link } from "react-router-dom";
 import ItemCount from './ItemCount'
 
-import {Container, Grid, CircularProgress, Box, Divider} from "@mui/material/";
+import {Container, Grid, CircularProgress, Box, Divider, Button} from "@mui/material/";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  link: {
+    textDecoration: "none",
+  }
+});
 
 const ItemDetail = ({item, loading}) => {
+  const classes = useStyles();
 
   const [cantidad, setCantidad] = useState(0)
+  const [btnFinalizar, setBtnFinalizar] = useState(false);
   
 
   const onAdd = (count) => {
     setCantidad(count)
+    setBtnFinalizar(true);
   }
   console.log(cantidad);
 
@@ -29,8 +40,13 @@ const ItemDetail = ({item, loading}) => {
 
             <Divider />
 
-                <ItemCount stock={item.stock} initial={1} onAdd={onAdd}/>
-              
+            {btnFinalizar ? (
+              <Link to="/cart" className={classes.link}>
+                <Button sx={{ my: 3 }} variant="outlined">finalizar compra</Button>
+              </Link>
+            ) : (
+              <ItemCount stock={item.stock} initial={1} onAdd={onAdd} />
+            )}
 
             <p>Released: {item.released}</p>
             <p>Genre: {item.genre}</p>
