@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom";
+import { useCartContext } from "../context/CartContext";
+
 import ItemCount from './ItemCount'
 
 import {Container, Grid, CircularProgress, Box, Divider, Button} from "@mui/material/";
@@ -13,17 +15,17 @@ const useStyles = makeStyles({
 
 const ItemDetail = ({item, loading}) => {
   const classes = useStyles();
-
-  const [cantidad, setCantidad] = useState(0)
+  const { showCart, addItem } = useCartContext()
   const [btnFinalizar, setBtnFinalizar] = useState(false);
   
-
-  const onAdd = (count) => {
-    setCantidad(count)
+  
+  const onAdd = (quantity) => {
+    const cartItem = {...item, quantity}
     setBtnFinalizar(true);
+    addItem(cartItem)
+    showCart()
   }
-  console.log(cantidad);
-
+  
   return (
     <Container sx={{ boxShadow: 3 }}>
       {loading ? (

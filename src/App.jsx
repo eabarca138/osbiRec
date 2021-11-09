@@ -5,29 +5,32 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import theme from './configTheme'
 import {ThemeProvider } from "@mui/material/styles";
+import CartContextProvider from './context/CartContext'
 
 function App() {
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <NavBar />
-        <Switch>
-          <Route exact path="/">
-            <ItemList />
-          </Route>
+    <CartContextProvider>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <NavBar />
+          <Switch>
+            <Route exact path="/">
+              <ItemList />
+            </Route>
 
-          <Route exact path="/category/:categoryId">
-            <ItemList />
-          </Route>
+            <Route exact path="/category/:categoryId">
+              <ItemList />
+            </Route>
 
-          <Route exact path="/detail/:id">
-            <ItemDetailContainer />
-          </Route>
+            <Route exact path="/detail/:id">
+              <ItemDetailContainer />
+            </Route>
 
-          {/* <Route exact path="/cart" component={Cart} /> */}
-        </Switch>
-      </ThemeProvider>
-    </Router>
+            {/* <Route exact path="/cart" component={Cart} /> */}
+          </Switch>
+        </ThemeProvider>
+      </Router>
+    </CartContextProvider>
   );
 }
 
