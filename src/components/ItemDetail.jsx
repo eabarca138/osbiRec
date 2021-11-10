@@ -20,11 +20,10 @@ const ItemDetail = ({item, loading}) => {
   
   
   const onAdd = (quantity) => {
-    const cartItem = {...item, quantity}
     setBtnFinalizar(true);
-    addItem(cartItem)
-    showCart()
-  }
+    addItem(item, quantity);
+    showCart();
+  };
   
   return (
     <Container sx={{ boxShadow: 3 }}>

@@ -1,18 +1,11 @@
 import { useState } from "react";
 import CartWidget from "./CartWidget";
 import { Link } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Button,
-  IconButton,
-  List,
-  ListItem,
-  Drawer,
-} from "@mui/material/";
+import { AppBar, Box, Toolbar, Button, IconButton, List, ListItem, Drawer } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@mui/styles";
+
+import { useCartContext } from "../context/CartContext";
 
 const useStyles = makeStyles({
   link: {
@@ -21,13 +14,24 @@ const useStyles = makeStyles({
   },
   linkDrawer: {
     textDecoration: "none",
-  }
+  },
+  cartNumber: {
+    background: "red",
+    color: "white",
+    borderRadius: "0.8em",
+    width: "1.6em",
+    paddingLeft: 0,
+  },
 });
 
 const drawerWidth = 240;
 
 const NavBar = (props) => {
   const classes = useStyles();
+  
+  const { cart } = useCartContext()
+
+  const cartQuantity = cart.reduce((acc, el) => acc + el.quantity, 0)
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -113,11 +117,21 @@ const NavBar = (props) => {
               display: { xs: "none", md: "block" }, marginLeft: 'auto'
             }}
           >
+
+{ cart.length ?
             <IconButton sx={{ color: "white" }}>
               <Link className={classes.link} to="/cart">
                 <CartWidget />
               </Link>
             </IconButton>
+   :
+      <div></div>
+}
+{ cart.length ?
+     <Link to="/cart" className={classes.linkDrawer}><Button><span className={classes.cartNumber}>{cartQuantity}</span></Button></Link>
+    :
+      <div></div>
+}
 
             <Button color="inherit">Login</Button>
           </Box>

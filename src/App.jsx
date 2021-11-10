@@ -1,5 +1,6 @@
 import NavBar from './components/NavBar'
 import ItemList from './components/ItemList'
+import Cart from './components/Cart'
 import ItemDetailContainer from './components/ItemDetailContainer'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
@@ -26,7 +27,7 @@ function App() {
               <ItemDetailContainer />
             </Route>
 
-            {/* <Route exact path="/cart" component={Cart} /> */}
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         </ThemeProvider>
       </Router>

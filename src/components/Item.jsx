@@ -15,7 +15,7 @@ import { Link } from "react-router-dom"
       },
     });
 
-const Item = ({product}) => {
+const Item = ({ product }) => {
     const classes = useStyles();
 
     return (
