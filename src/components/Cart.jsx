@@ -2,7 +2,7 @@ import { useCartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
-import { Table, TableBody, TableContainer, TableHead, TableRow, Paper, Container, IconButton, Button } from "@mui/material/";
+import { Table, TableBody, TableContainer, TableHead, TableRow, Paper, Container, IconButton, Button, Avatar } from "@mui/material/";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -28,7 +28,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const Cart = () => {
-    const { cart, totalCart, clearCart, removeItem } = useCartContext()
+    const { cart, totalCart, clearCart, removeItem, clpFormatter } = useCartContext()
 
   function createData( image, product, quantity, price, subtotal, button) {
     return { image, product, quantity, price, subtotal, button };
@@ -36,11 +36,14 @@ const Cart = () => {
 
   const rows = cart.map((product) => {
     return createData(
-      <img src={product.img} alt="imagen producto" />,
+      <Avatar variant={"rounded"} alt="imagen producto" src={product.img} style={{
+        width: 80,
+        height: 80,
+      }} />,
       product.name,
       product.quantity,
-      product.price,
-      product.subtotal,
+      clpFormatter(product.price),
+      clpFormatter(product.subtotal),
       <IconButton onClick={() => removeItem(product.id)}>
         <DeleteIcon />
       </IconButton>

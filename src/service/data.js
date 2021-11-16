@@ -97,7 +97,7 @@ export const data = [
       "Glue Man",
       "Margin Walker",
       "And The Same",
-      "	Burning Too",
+      "Burning Too",
       "Provisional",
       "Lockdown",
       "Promises"

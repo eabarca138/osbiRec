@@ -4,46 +4,59 @@ import { useCartContext } from "../context/CartContext";
 
 import ItemCount from './ItemCount'
 
-import {Container, Grid, CircularProgress, Box, Divider, Button} from "@mui/material/";
+import {Container, Grid, CircularProgress, Box, Divider, Button } from "@mui/material/";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   link: {
     textDecoration: "none",
-  }
+  },
 });
 
-const ItemDetail = ({item, loading}) => {
+const ItemDetail = ({item, loading, handleChange}) => {
   const classes = useStyles();
-  const { showCart, addItem } = useCartContext()
+  const { addItem, clpFormatter } = useCartContext()
   const [btnFinalizar, setBtnFinalizar] = useState(false);
-  
   
   const onAdd = (quantity) => {
     setBtnFinalizar(true);
     addItem(item, quantity);
-    showCart();
+    handleChange(quantity)
   };
-  
+
   return (
     <Container sx={{ boxShadow: 3 }}>
       {loading ? (
         <Grid container>
           <Grid item xs={6}>
-            <Box sx={{ mx: "auto", width: "50%", height: "50%", mt: 5 }}>
-              <img src={item.imgDetail} alt="cover" />
-            </Box>
+            <Box
+              component="img"
+              display="flex"
+              justifyContent="center"
+              sx={{
+                margin: 'auto',
+                marginTop: 2,
+                height: 350,
+                width: 350,
+                maxHeight: { xs: 100, md: 200 },
+                maxWidth: { xs: 100, md: 200 },
+              }}
+              alt="cover"
+              src={item.img}
+            />
           </Grid>
 
           <Grid item xs={6}>
             <h1>{item.name}</h1>
-            <h2>{item.price}</h2>
+            <h2>{clpFormatter(item.price)}</h2>
 
             <Divider />
 
             {btnFinalizar ? (
               <Link to="/cart" className={classes.link}>
-                <Button sx={{ my: 3 }} variant="outlined">finalizar compra</Button>
+                <Button sx={{ my: 3 }} variant="outlined">
+                  finalizar compra
+                </Button>
               </Link>
             ) : (
               <ItemCount stock={item.stock} initial={1} onAdd={onAdd} />

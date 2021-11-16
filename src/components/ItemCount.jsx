@@ -21,11 +21,6 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
   const handlerOnAdd = () => {
     onAdd(count);
-    alert(
-      `${count} ${
-        count > 1 ? "productos añadidos" : "producto añadido"
-      } al carrito`
-    );
     setCount(initial);
   };
 

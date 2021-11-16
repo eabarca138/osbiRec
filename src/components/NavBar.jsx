@@ -61,7 +61,7 @@ const NavBar = (props) => {
   const container =
     window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box >
+    <Box>
       <AppBar
         position="fixed"
         sx={{
@@ -114,24 +114,21 @@ const NavBar = (props) => {
 
           <Box
             sx={{
-              display: { xs: "none", md: "block" }, marginLeft: 'auto'
+              display: { xs: "none", md: "block" },
+              marginLeft: "auto",
             }}
           >
-
-{ cart.length ?
             <IconButton sx={{ color: "white" }}>
               <Link className={classes.link} to="/cart">
                 <CartWidget />
               </Link>
             </IconButton>
-   :
-      <div></div>
-}
-{ cart.length ?
-     <Link to="/cart" className={classes.linkDrawer}><Button><span className={classes.cartNumber}>{cartQuantity}</span></Button></Link>
-    :
-      <div></div>
-}
+
+            <Link to="/cart" className={classes.linkDrawer}>
+              <Button>
+                <span className={classes.cartNumber}>{cartQuantity}</span>
+              </Button>
+            </Link>
 
             <Button color="inherit">Login</Button>
           </Box>

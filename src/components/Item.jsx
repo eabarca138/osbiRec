@@ -1,6 +1,7 @@
+import { useCartContext } from "../context/CartContext";
+import { Link } from "react-router-dom"
 import {Card, CardContent, CardMedia, Typography, Grid} from '@mui/material/';
 import { makeStyles } from '@mui/styles';
-import { Link } from "react-router-dom"
 
     const useStyles = makeStyles({
       scale: {
@@ -17,6 +18,7 @@ import { Link } from "react-router-dom"
 
 const Item = ({ product }) => {
     const classes = useStyles();
+    const { clpFormatter } = useCartContext()
 
     return (
       <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -39,7 +41,7 @@ const Item = ({ product }) => {
             </Typography>
 
             <Typography variant="subtitle2" color="text.secondary">
-              {product.price}
+              {clpFormatter(product.price)}
             </Typography>
           </CardContent>
 
