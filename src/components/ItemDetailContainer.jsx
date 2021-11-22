@@ -23,36 +23,27 @@ const ItemDetailContainer = () => {
   const [loading, setLoading] = useState(false);
   
   useEffect(() => {
-
-    const db = getFirestore()
-    const dbQuery = db.collection('items')
-    dbQuery.doc(id).get()
-    .then(resp => setItem( { id: resp.id, ...resp.data() }))
-    .catch((e) => console.log(e))
-    .finally(() => setLoading(true));
-
-
-/*     const getItem = new Promise((res, rej) => {
-      setTimeout(() => {
-        res(data);
-      }, 1000);
-    });
-
-    getItem
-      .then((result) => {
-        setItem(result.filter((item) => item.id === id)[0]);
-    })
-    .catch((e) => console.log(e))
-    .finally(() => setLoading(true)); */
-}, [id]);
+    const db = getFirestore();
+    const dbQuery = db.collection("items");
+    dbQuery
+      .doc(id)
+      .get()
+      .then((resp) => setItem({ id: resp.id, ...resp.data() }))
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(true));
+  }, [id]);
 
 const handleChange = (cant) => {
-  setCant(cant)
+  setCant(cant);
   alert ? setAlert((prev) => !prev) : setAlert((prev) => !prev);
   setTimeout(() => {
     setAlert((prev) => !prev);
   }, 2000);
 };
+
+useEffect(() => {
+  setAlert(false)
+}, [])
 
 const SuccessAlert = (
   <Stack  sx={{ width: "100%", display: { xs: "none", lg: "block"} }} spacing={2} className={classes.alert}> 

@@ -9,47 +9,37 @@ import {Grid, Container, CircularProgress} from '@mui/material/';
 const ItemList = () => {
   const { categoryId } = useParams()
 
-    const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(false)
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    
-    useEffect(() => {
-      const db = getFirestore();
-      const dbQuery = db.collection("items")
 
-        if (categoryId) {
-          dbQuery.where('category', '==', categoryId).get()
-          .then((resp) => setProducts(resp.docs.map(item => ( {id: item.id, ...item.data()} )) ))
-          .catch((err) => console.log(err))
-          .finally(() => setLoading(true));
-        } else {
-          dbQuery.get()
-          .then((resp) => setProducts(resp.docs.map(item => ( {id: item.id, ...item.data()} )) ))
-          .catch((err) => console.log(err))
-          .finally(() => setLoading(true));
-        }
+  useEffect(() => {
+    const db = getFirestore();
+    const dbQuery = db.collection("items");
 
-/*       const getData = new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve(data);
-          }, 1000);
-        });
-        if (categoryId) {
-          getData
-          .then((result) => {
-            setProducts(result.filter(item => item.category === categoryId ));
-          })
-          .catch((err) => console.log(err))
-          .finally(() => setLoading(true));
-        } else {
-          getData
-          .then((result) => {
-            setProducts(result);
-          })
-          .catch((err) => console.log(err))
-          .finally(() => setLoading(true));
-        } */
-    }, [categoryId]);
+    if (categoryId) {
+      dbQuery
+        .where("category", "==", categoryId)
+        .get()
+        .then((resp) =>
+          setProducts(
+            resp.docs.map((item) => ({ id: item.id, ...item.data() }))
+          )
+        )
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(true));
+    } else {
+      dbQuery
+        .get()
+        .then((resp) =>
+          setProducts(
+            resp.docs.map((item) => ({ id: item.id, ...item.data() }))
+          )
+        )
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(true));
+    }
+  }, [categoryId]);
         
     return (
       <Container sx={{ mt: 3 }}>
@@ -67,7 +57,7 @@ const ItemList = () => {
       </Container>
     );
 }
- 
+
 export default ItemList;
 
 

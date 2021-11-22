@@ -22,6 +22,7 @@ const ItemDetail = ({item, loading, handleChange}) => {
     setBtnFinalizar(true);
     addItem(item, quantity);
     handleChange(quantity)
+    
   };
 
   return (
@@ -52,6 +53,8 @@ const ItemDetail = ({item, loading, handleChange}) => {
 
             <Divider />
 
+            {item.stock ? (
+              <>
             {btnFinalizar ? (
               <Link to="/cart" className={classes.link}>
                 <Button sx={{ my: 3 }} variant="outlined">
@@ -61,7 +64,10 @@ const ItemDetail = ({item, loading, handleChange}) => {
             ) : (
               <ItemCount stock={item.stock} initial={1} onAdd={onAdd} />
             )}
-
+            </>
+) : (
+  <p>producto sin stock</p>
+)}
             <p>Released: {item.released}</p>
             <p>Genre: {item.genre}</p>
 
