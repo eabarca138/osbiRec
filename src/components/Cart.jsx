@@ -4,7 +4,7 @@ import Form from './Form'
 import { getFirestore } from  '../service/getFirestore'
 import firebase from 'firebase'
 import { useCartContext } from "../context/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { Table, TableBody, TableContainer, TableHead, TableRow, Paper, Container, IconButton, Button, Avatar } from "@mui/material/";
@@ -31,8 +31,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const Cart = () => {
-  const { cart, totalCart, clearCart, removeItem, clpFormatter } =
-    useCartContext();
+  const { cart, totalCart, clearCart, removeItem, clpFormatter } = useCartContext();
+  const history = useHistory();
 
   const [order, setOrder] = useState({})
   //const [formData, setFormData] = useState({})
@@ -81,9 +81,6 @@ const Cart = () => {
               docSnapshot.data().stock -
               cart.find((item) => item.id === docSnapshot.id).quantity,
             });
-            //Comprueba stock en firestore y agrega la orden
-            dbQuery.collection("orders").add({ ...order, buyer });
-            e.target.reset();
           }
           else{
             setStock(false)
@@ -94,8 +91,12 @@ const Cart = () => {
             return
           }
         });
-        
         batch.commit();
+
+        dbQuery.collection("orders").add({ ...order, buyer })
+        .then( resp => history.push(`/order/${resp.id}`))
+        e.target.reset();
+        clearCart()
       });
   };
 
@@ -187,6 +188,7 @@ const Cart = () => {
         </TableContainer>
 
         {cart.length ? (
+          <>
           <TableContainer>
             <Table>
               <TableHead>
@@ -204,14 +206,13 @@ const Cart = () => {
                 </TableRow>
               </TableBody>
             </Table>
-          </TableContainer>
-        ) : (
+          </TableContainer> 
+          <Button variant="contained" onClick={finalizarCompra}>Finalizar compra</Button>
+        </>)
+          :
           <br />
-        )}
-
-        <Button variant="contained" onClick={finalizarCompra}>Finalizar compra</Button>
+      }
       </Container>
-
       <Form stock={stock} open={open} handleClose={handleClose} generateOrder={generateOrder}/>
     </>
   );

@@ -32,79 +32,96 @@ const modal = {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modal}>
-        <Container>
+          <Container>
+            <Typography variant="h5">Información de Contacto</Typography>
+            <Divider />
+            <form onSubmit={handleSubmit(generateOrder)}>
+              <TextField
+                sx={input}
+                variant="outlined"
+                label="Nombre"
+                name="name"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Campo requerido",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "máximo de caracteres es 20",
+                  },
+                })}
+              />
+              <Typography variant="caption" color="error">
+                {errors.name && errors.name.message}
+              </Typography>
 
-        <Typography variant="h5">Información de Contacto</Typography>
-        <Divider />
-        <form onSubmit={handleSubmit(generateOrder)}>
-          <TextField
-            sx={input}
-            variant="outlined"
-            label="Nombre"
-            name="name"
-            {...register("name", {
-              required: {
-                value: true,
-                message: "Campo requerido",
-              },
-              maxLength: { value: 20, message: "máximo de caracteres es 20" },
-            })}
-          />
-          <Typography variant="caption" color="error">
-            {errors.name && errors.name.message}
-            </Typography>
+              <TextField
+                sx={input}
+                variant="outlined"
+                label="Teléfono"
+                name="phone"
+                {...register("phone", {
+                  required: {
+                    value: true,
+                    message: "Campo requerido",
+                  },
+                  pattern: {
+                    value:
+                      /^(\(\+?\d{2,3}\)[*|\s|\-|.]?(([\d][|\s|\-|.]?){6})(([\d][\s|\-|.]?){2})?|(\+?[\d][\s|\-|.]?){8}(([\d][\s|\-|.]?){2}(([\d][\s|\-|.]?){2})?)?)$/,
+                    message: "Error de formato",
+                  },
+                })}
+              />
+              <Typography variant="caption" color="error">
+                {errors.phone && errors.phone.message}
+              </Typography>
 
-          <TextField
-            sx={input}
-            variant="outlined"
-            label="Teléfono"
-            name="phone"
-            {...register("phone", {
-              required: {
-                value: true,
-                message: "Campo requerido",
-              },
-              maxLength: { value: 20, message: "máximo de caracteres es 20" },
-            })}
-          />
-          <Typography variant="caption" color="error">
-            {errors.phone && errors.phone.message}
-            </Typography>
+              <TextField
+                sx={input}
+                variant="outlined"
+                label="E-mail"
+                name="email"
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Campo requerido",
+                  },
+                  pattern: {
+                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                    message: "Error de formato",
+                  },
+                })}
+              />
+              <Typography variant="caption" color="error">
+                {errors.email && errors.email.message}
+              </Typography>
 
-          <TextField
-            sx={input}
-            variant="outlined"
-            label="E-mail"
-            name="email"
-            {...register("email", {
-              required: {
-                value: true,
-                message: "Campo requerido",
-              },
-              maxLength: { value: 20, message: "máximo de caracteres es 20" },
-            })}
-          />
-          <Typography variant="caption" color="error">
-            {errors.email && errors.email.message}
-            </Typography>
-
-<Box>
-          {stock ?
-          <Button type="submit" variant="contained" color="success">
-            realizar pedido
-          </Button>
-          :
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="subtitle1" color="error">Sin stock suficiente</Typography>
-          <Button variant="outlined" color="info">Volver</Button>
-          </Box>
-  }
-  </Box>
-        </form>
-      </Container>
+              <Box>
+                {stock ? (
+                  <Button type="submit" variant="contained" color="success">
+                    realizar pedido
+                  </Button>
+                ) : (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="subtitle1" color="error">
+                      Sin stock suficiente
+                    </Typography>
+                    <Button variant="outlined" color="info">
+                      Volver
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            </form>
+          </Container>
         </Box>
-
-
       </Modal>
     );
 }

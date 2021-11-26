@@ -2,6 +2,7 @@ import NavBar from './components/NavBar'
 import ItemList from './components/ItemList'
 import Cart from './components/Cart'
 import ItemDetailContainer from './components/ItemDetailContainer'
+import Smessage from './components/Smessage'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import theme from './configTheme'
@@ -28,6 +29,8 @@ function App() {
             </Route>
 
             <Route exact path="/cart" component={Cart} />
+            
+            <Route exact path="/order/:orderId" component={Smessage} />
           </Switch>
         </ThemeProvider>
       </Router>

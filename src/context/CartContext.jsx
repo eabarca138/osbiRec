@@ -8,14 +8,14 @@ const CartContextProvider = ({ children }) => {
   
   const isInCart = (id) => {
     const finder = cart.find((item) => item.id === id);
-    return finder ? true : false
+    return finder 
   }
   
   const addItem = (item, quantity) => {
     if (isInCart(item.id)) {
-      item.quantity = quantity + item.quantity;
+      item.quantity = quantity + isInCart(item.id).quantity;
       item.subtotal = item.quantity * item.price;
-      setCart(cart.filter(() => item.id !== cart.id));
+      setCart([...cart.filter((cartItem) => item.id !== cartItem.id), item]);
     } else {
       item.quantity = quantity;
       item.subtotal = item.price * item.quantity;
