@@ -35,11 +35,11 @@ const Cart = () => {
   const history = useHistory();
 
   const [order, setOrder] = useState({})
-  //const [formData, setFormData] = useState({})
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [stock, setStock] = useState(true)
+  const [loader, setLoader] = useState(true)
 
   const finalizarCompra = () => {
     const order = {};
@@ -58,7 +58,7 @@ const Cart = () => {
   };
   
   const generateOrder = (data, e) => {
-    //setFormData(data)
+    setLoader(false)
     const dbQuery = getFirestore();
     const buyer = data
     
@@ -95,8 +95,12 @@ const Cart = () => {
 
         dbQuery.collection("orders").add({ ...order, buyer })
         .then( resp => history.push(`/order/${resp.id}`))
+        .catch(err => console.log(err))
+        .finally(() => {
         e.target.reset();
         clearCart()
+        setLoader(true)
+      })
       });
   };
 
@@ -213,7 +217,7 @@ const Cart = () => {
           <br />
       }
       </Container>
-      <Form stock={stock} open={open} handleClose={handleClose} generateOrder={generateOrder}/>
+      <Form stock={stock} open={open} handleClose={handleClose} generateOrder={generateOrder} loader={loader}/>
     </>
   );
 };

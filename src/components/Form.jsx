@@ -1,4 +1,4 @@
-import { Modal, Box, Container, TextField, Button, Divider, Typography } from '@mui/material/';
+import { Modal, Box, Container, TextField, Button, Divider, Typography, CircularProgress } from '@mui/material/';
 import { useForm } from "react-hook-form";
 
 
@@ -21,7 +21,7 @@ const modal = {
 
   
   
-  const Form = ({ stock, open, handleClose, generateOrder }) => {
+  const Form = ({ stock, open, handleClose, generateOrder, loader }) => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     
     return (
@@ -97,6 +97,7 @@ const modal = {
                 {errors.email && errors.email.message}
               </Typography>
 
+                { loader ?
               <Box>
                 {stock ? (
                   <Button type="submit" variant="contained" color="success">
@@ -119,6 +120,9 @@ const modal = {
                   </Box>
                 )}
               </Box>
+                :
+                  <CircularProgress align="center"/>
+              }
             </form>
           </Container>
         </Box>

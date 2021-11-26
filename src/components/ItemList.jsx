@@ -15,30 +15,15 @@ const ItemList = () => {
 
   useEffect(() => {
     const db = getFirestore();
-    const dbQuery = db.collection("items");
+    const dbQuery = categoryId ? db.collection("items").where("category", "==", categoryId) : db.collection("items");
 
-    if (categoryId) {
-      dbQuery
-        .where("category", "==", categoryId)
-        .get()
-        .then((resp) =>
-          setProducts(
-            resp.docs.map((item) => ({ id: item.id, ...item.data() }))
-          )
-        )
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(true));
-    } else {
-      dbQuery
-        .get()
-        .then((resp) =>
-          setProducts(
-            resp.docs.map((item) => ({ id: item.id, ...item.data() }))
-          )
-        )
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(true));
-    }
+    dbQuery
+      .get()
+      .then((resp) =>
+        setProducts(resp.docs.map((item) => ({ id: item.id, ...item.data() })))
+      )
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(true));
   }, [categoryId]);
         
     return (
