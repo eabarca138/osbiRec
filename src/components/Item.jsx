@@ -1,6 +1,6 @@
 import { useCartContext } from "../context/CartContext";
 import { Link } from "react-router-dom"
-import {Card, CardContent, CardMedia, Typography, Grid} from '@mui/material/';
+import {Card, CardContent, CardMedia, CardActions, Button, Typography, Grid, Grow } from '@mui/material/';
 import { makeStyles } from '@mui/styles';
 
     const useStyles = makeStyles({
@@ -19,21 +19,22 @@ import { makeStyles } from '@mui/styles';
 const Item = ({ product }) => {
     const classes = useStyles();
     const { clpFormatter } = useCartContext()
+    const checked = true;
 
     return (
+      <Grow in={checked}>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <Link to={`/detail/${product.id}`} className={classes.link}>
-        <Card sx={{ maxWidth: 200 }} className={classes.scale}>
+        <Card  className={classes.scale} sx={{height: '100%'}}>
           <CardMedia
             component="img"
             height="200"
-            sx={{ width: 200 }}
             image={product.img}
             alt="product image"
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              {product.genre}
+              {product.category}
             </Typography>
 
             <Typography gutterBottom variant="subtitle2" component="div">
@@ -43,11 +44,15 @@ const Item = ({ product }) => {
             <Typography variant="subtitle2" color="text.secondary">
               {clpFormatter(product.price)}
             </Typography>
+            <CardActions>
+        <Button sx={{width:'100%'}} variant='outlined' size="small">Ver Detalle</Button>
+      </CardActions>
           </CardContent>
 
         </Card>
       </Link>
       </Grid>
+      </Grow>
     );
 }
  

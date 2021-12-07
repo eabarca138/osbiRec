@@ -1,26 +1,28 @@
 import { useState } from "react";
 import CartWidget from "./CartWidget";
 import { Link } from "react-router-dom";
-import { AppBar, Box, Toolbar, Button, IconButton, List, ListItem, Drawer } from "@mui/material/";
+import { AppBar, Box, Toolbar, Button, IconButton, List, ListItem, Drawer, Container } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@mui/styles";
+import './styles.css'
 
 import { useCartContext } from "../context/CartContext";
 
 const useStyles = makeStyles({
   link: {
-    color: "white",
+    color: "#fff",
     textDecoration: "none",
   },
   linkDrawer: {
     textDecoration: "none",
+    color:'#000000'
   },
   cartNumber: {
     background: "red",
     color: "white",
     borderRadius: "0.8em",
     width: "1.6em",
-    paddingLeft: 0,
+    padding: 0,
   },
 });
 
@@ -68,21 +70,22 @@ const NavBar = (props) => {
           width: "100%",
         }}
       >
-        <Toolbar>
+        <Container>
+        <Toolbar sx={{marginLeft: 0, padding: 0}}>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" } }}
+            sx={{ display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
 
-          <Button>
-            <Link to="/" className={classes.link}>
-              News
+          <Button className='logo'>
+            <Link to="/" className='logo'>
+              osbi records
             </Link>
           </Button>
           <Box
@@ -133,6 +136,7 @@ const NavBar = (props) => {
             <Button color="inherit">Login</Button>
           </Box>
         </Toolbar>
+        </Container>
       </AppBar>
 
       <Box

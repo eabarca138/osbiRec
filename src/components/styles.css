@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+a{
+    color: #fff;
+}
+.logo {
+    font-family: 'Creepster', cursive;
+    font-size: 2rem;
+    color: #fff;
+    text-decoration: none;
+}
+.icono-footer {
+    margin: auto .6rem;
+}
+
+.order-id-section{
+    position: static;
+    padding-bottom: 4.675rem;
+
+}
+.order-id-container{
+    padding-top: 2.2rem;
+    padding-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+}

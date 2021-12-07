@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 import ItemDetail from './ItemDetail'
 import { getFirestore } from  '../service/getFirestore'
@@ -16,7 +16,8 @@ const useStyles = makeStyles({
 const ItemDetailContainer = () => {
   const classes = useStyles();
   const { id } = useParams();
-
+  const history = useHistory();
+  
   const [item, setItem] = useState([]);
   const [cant, setCant] = useState(1)
   const [alert, setAlert] = useState(false); 
@@ -25,13 +26,18 @@ const ItemDetailContainer = () => {
   useEffect(() => {
     const db = getFirestore();
     const dbQuery = db.collection("items");
-    dbQuery
-      .doc(id)
+    dbQuery.doc(id)
       .get()
-      .then((resp) => setItem({ id: resp.id, ...resp.data() }))
+      .then((resp) => {
+        if (resp.exists) {
+          setItem({ id: resp.id, ...resp.data() })
+        } else {
+          history.push(`/NotFound`)
+        }
+      })
       .catch((e) => console.log(e))
       .finally(() => setLoading(true));
-  }, [id]);
+  }, [id, history]);
 
 const handleChange = (cant) => {
   setCant(cant);
@@ -52,7 +58,7 @@ const SuccessAlert = (
 );
 
   return (
-    <div>
+    <>
       <Box>
         <Box sx={{ position: 'absolute', right: '2rem', top: '5rem' }}>
           <Fade in={alert}>{SuccessAlert}</Fade>
@@ -68,7 +74,7 @@ const SuccessAlert = (
         </Grid>
       )}
     </Container>
-    </div>
+    </>
   );
 };
  

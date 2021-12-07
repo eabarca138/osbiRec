@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Form from './Form'
 
 import { getFirestore } from  '../service/getFirestore'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import { useCartContext } from "../context/CartContext";
 import { Link, useHistory } from "react-router-dom";
 
@@ -130,7 +130,7 @@ const Cart = () => {
 
   return (
     <>
-      <Container>
+      <Container sx={{paddingBottom:'6.5rem'}}>
         <h3>Carro de Compras</h3>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -193,7 +193,7 @@ const Cart = () => {
 
         {cart.length ? (
           <>
-          <TableContainer>
+          <TableContainer sx={{width: {xs:'100%', sm:'50%', lg:'30%'}, marginBottom:'2rem', marginTop:'2rem'}}>
             <Table>
               <TableHead>
                 <TableRow>

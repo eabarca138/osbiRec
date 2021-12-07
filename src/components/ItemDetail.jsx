@@ -22,32 +22,31 @@ const ItemDetail = ({item, loading, handleChange}) => {
     setBtnFinalizar(true);
     addItem(item, quantity);
     handleChange(quantity)
-    
   };
 
   return (
-    <Container sx={{ boxShadow: 3 }}>
+    <Container fixed sx={{ boxShadow: 3 }}>
       {loading ? (
         <Grid container>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box
               component="img"
               display="flex"
               justifyContent="center"
               sx={{
                 margin: 'auto',
-                marginTop: 2,
-                height: 350,
-                width: 350,
-                maxHeight: { xs: 100, md: 200 },
-                maxWidth: { xs: 100, md: 200 },
+                marginTop: '3rem',
+                height: '100%',
+                width: '100%',
+                maxHeight: { xs: 150, sm: 150, md:250 },
+                maxWidth: { xs: 150, sm: 150, md:250 },
               }}
               alt="cover"
               src={item.img}
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid xs={12} item sm={12} md={6}>
             <h1>{item.name}</h1>
             <h2>{clpFormatter(item.price)}</h2>
 
