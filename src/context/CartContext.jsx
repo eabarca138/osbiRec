@@ -1,10 +1,11 @@
-import { useState, createContext, useContext } from "react";
+import { createContext, useContext } from "react";
+import  usePersistedState from '../components/usePersistedState';
 
 const CartContext = createContext();
 export const useCartContext = () => useContext(CartContext);
 
 const CartContextProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = usePersistedState('OsbiCart', []);
   
   const isInCart = (id) => {
     const finder = cart.find((item) => item.id === id);
